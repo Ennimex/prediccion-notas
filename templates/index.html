@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediccion de calificacion final</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+        .contenedor { max-width: 500px; margin: 30px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; font-size: 22px; margin-bottom: 4px; }
+        p.sub { text-align: center; color: #777; font-size: 14px; margin-top: 0; }
+        label { display: block; margin-top: 12px; font-size: 14px; color: #444; }
+        input, select { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; margin-top: 20px; background: #2c7be5; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #1a5fc0; }
+        .resultado { margin-top: 20px; padding: 15px; background: #e6f4ea; border-radius: 5px; text-align: center; font-size: 18px; color: #1e7e34; }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Prediccion de la calificacion final</h1>
+        <p class="sub">Modelo Random Forest - Student Performance</p>
+
+        <form action="/predecir" method="POST">
+            <label>Edad</label>
+            <input type="number" name="age" min="15" max="22" required>
+
+            <label>Educacion del padre</label>
+            <select name="Fedu" required>
+                <option value="0">Sin estudios</option>
+                <option value="1">Primaria (hasta 4 grado)</option>
+                <option value="2">De 5 a 9 grado</option>
+                <option value="3">Secundaria / Preparatoria</option>
+                <option value="4">Universidad</option>
+            </select>
+
+            <label>Tiempo de estudio (por semana)</label>
+            <select name="studytime" required>
+                <option value="1">Menos de 2 horas</option>
+                <option value="2">De 2 a 5 horas</option>
+                <option value="3">De 5 a 10 horas</option>
+                <option value="4">Mas de 10 horas</option>
+            </select>
+
+            <label>Actividades extracurriculares</label>
+            <select name="activities" required>
+                <option value="1">Si</option>
+                <option value="0">No</option>
+            </select>
+
+            <label>Relacion familiar</label>
+            <select name="famrel" required>
+                <option value="1">1 - Muy mala</option>
+                <option value="2">2 - Mala</option>
+                <option value="3">3 - Regular</option>
+                <option value="4">4 - Buena</option>
+                <option value="5">5 - Excelente</option>
+            </select>
+
+            <label>Estado de salud</label>
+            <select name="health" required>
+                <option value="1">1 - Muy malo</option>
+                <option value="2">2 - Malo</option>
+                <option value="3">3 - Regular</option>
+                <option value="4">4 - Bueno</option>
+                <option value="5">5 - Muy bueno</option>
+            </select>
+
+            <label>Numero de ausencias</label>
+            <input type="number" name="absences" min="0" required>
+
+            <label>Calificacion del primer parcial (0 a 20)</label>
+            <input type="number" name="G1" min="0" max="20" required>
+
+            <label>Calificacion del segundo parcial (0 a 20)</label>
+            <input type="number" name="G2" min="0" max="20" required>
+
+            <label>Eligio la escuela por cercania</label>
+            <select name="reason_home" required>
+                <option value="1">Si</option>
+                <option value="0">No</option>
+            </select>
+
+            <button type="submit">Predecir nota</button>
+        </form>
+
+        {% if resultado %}
+        <div class="resultado">
+            La calificacion final estimada es: <strong>{{ resultado }}</strong>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
